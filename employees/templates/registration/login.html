@@ -4,7 +4,7 @@
 <h1>Login</h1>
 
 {% if form.errors %}
-<p>Your username and password didn’t match. Please try again.</p>
+<p>Could not log in successfully. Please try again.</p>
 {% endif %}
 
 <form method="post" action="{% url 'login' %}">
