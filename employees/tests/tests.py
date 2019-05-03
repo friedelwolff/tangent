@@ -18,6 +18,14 @@ class TestURLS(TestCase):
         self.assertContains(response, "Username")
 
         response = self.client.post('/auth/login/', follow=True, data={
+            "username": "x",
+            "password": "x",
+        })
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Log in")
+        self.assertNotContains(response, "Log out")
+
+        response = self.client.post('/auth/login/', follow=True, data={
             "username": "pravin.gordhan",
             "password": "pravin.gordhan",
         })
