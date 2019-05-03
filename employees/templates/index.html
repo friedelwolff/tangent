@@ -2,8 +2,10 @@
 {% block content %}
 
 {% if user.is_authenticated %}
-    <a href="auth/logout/">Log out</a>
+    {% url 'logout' as url %}
+    <a href="{{ url }}">Log out</a>
 {% else %}
-    <a href="auth/login/">Log in</a>
+    {% url 'login' as url %}
+    <a href="{{ url }}">Log in</a>
 {% endif %}
 {% endblock %}
