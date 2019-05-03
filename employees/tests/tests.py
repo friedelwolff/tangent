@@ -2,6 +2,7 @@ from django.test import TestCase, override_settings
 from django.test.client import Client
 
 
+@override_settings(MOCK_API=True)
 class TestURLS(TestCase):
 
     def setUp(self):

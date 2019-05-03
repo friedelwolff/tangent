@@ -113,3 +113,4 @@ STATIC_URL = '/static/'
 # Configuration for the web API:
 API_AUTH_URL = config('API_AUTH_URL', default='')
 API_URL = config('API_URL', default='')
+MOCK_API = False
