@@ -109,3 +109,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# Configuration for the web API:
+API_AUTH_URL = config('API_AUTH_URL', default='')
+API_URL = config('API_URL', default='')

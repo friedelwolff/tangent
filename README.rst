@@ -29,6 +29,8 @@ Configure settings in the file `.env`, with at least these fields:
 .. code::
 
   SECRET_KEY = ARANDOMSECRETKEY
+  API_AUTH_URL = http://...../api-token-auth/
+  API_URL = http://...../api/
 
 Alternative methods for configuring (such as environment variables) are
 possible. Consult the documentation for `python-decouple`.
