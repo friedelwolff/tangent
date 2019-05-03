@@ -106,3 +106,6 @@ venv.bak/
 # editor files
 *.swp
 *~
+
+# file for decouple settings (also above for venv)
+.env

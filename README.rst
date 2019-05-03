@@ -24,6 +24,15 @@ Then install the dependencies:
 
   pip install -r requirements/base.txt
 
+Configure settings in the file `.env`, with at least these fields:
+
+.. code::
+
+  SECRET_KEY = ARANDOMSECRETKEY
+
+Alternative methods for configuring (such as environment variables) are
+possible. Consult the documentation for `python-decouple`.
+
 Initialise the database:
 
 .. code:: bash
