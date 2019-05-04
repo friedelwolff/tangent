@@ -1,3 +1,5 @@
+import json
+
 from employees.api import WebClientError
 
 class WebAPIClient:
