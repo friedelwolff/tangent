@@ -38,5 +38,9 @@ class WebAPIClient:
         return self._api_helper('employee/')
 
 
-if settings.MOCK_API:
-    from employees.tests.mock_api import WebAPIClient
+def get_client_class():
+    # simple factory method to ease testing with the mocked client
+    if settings.MOCK_API:
+        from employees.tests.mock_api import MockedWebAPIClient
+        return MockedWebAPIClient
+    return WebAPIClient

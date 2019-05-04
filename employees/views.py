@@ -1,6 +1,6 @@
 from django.views.generic.base import TemplateView
 
-from employees.api import WebAPIClient
+from employees.api import get_client_class
 
 
 class IndexView(TemplateView):
@@ -12,7 +12,7 @@ class EmployeesListView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        client = WebAPIClient.from_request(self.request)
+        client = get_client_class().from_request(self.request)
         employees = client.get_employees(self.request)
         context['employees'] = employees
         #TODO: pagination

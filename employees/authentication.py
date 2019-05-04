@@ -2,7 +2,7 @@
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.models import User
 
-from employees.api import WebAPIClient, WebClientError
+from employees.api import get_client_class, WebClientError
 
 
 class WebServiceAuthentication:
@@ -12,7 +12,7 @@ class WebServiceAuthentication:
             return None
 
         try:
-            client = WebAPIClient.from_auth(username, password)
+            client = get_client_class().from_auth(username, password)
         except WebClientError:
             raise PermissionDenied()
 
