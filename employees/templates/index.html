@@ -2,8 +2,12 @@
 {% block content %}
 
 {% if user.is_authenticated %}
+  <ul>
+    {% url 'list' as url %}
+    <li><a href="{{ url }}">List of employees</a>
     {% url 'logout' as url %}
-    <a href="{{ url }}">Log out</a>
+    <li><a href="{{ url }}">Log out</a>
+  </ul>
 {% else %}
     {% url 'login' as url %}
     <a href="{{ url }}">Log in</a>

@@ -34,6 +34,9 @@ class WebAPIClient:
         except (requests.exceptions.RequestException, ValueError) as e:
             raise WebClientError() from e
 
+    def get_employees(self, request):
+        return self._api_helper('employee/')
+
 
 if settings.MOCK_API:
     from employees.tests.mock_api import WebAPIClient

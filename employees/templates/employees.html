@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Employees</h1>
+
+{% if employees %}
+<table class="table">
+  <thead>
+    <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Position</th>
+    <th scope="col">Github</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for employee in employees %}
+    <tr>
+      <td>{{ employee.user.first_name }} {{ employee.user.last_name }}</td>
+      <td>{{ employee.position.name }}
+          {% if employee.position.level %}
+            ({{ employee.position.level }})
+          {% endif %}</td>
+      <td>{% if employee.github_user %}
+            <a href="https://github/{{ employee.github_user}}">{{ employee.github_user }}</a>
+          {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+</table>
+{% endif %}
+
+{% endblock %}
