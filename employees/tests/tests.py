@@ -38,6 +38,13 @@ class TestURLS(TestCase):
         self.assertContains(response, "Log out")
 
     def test_employee_list(self):
+        #Test unauthenticated:
+        response = self.client.get('/list/')
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get('/list/', follow=True)
+        self.assertContains(response, "Password")
+
+        #Test authenticated:
         self.login()
         response = self.client.get('/list/')
         self.assertEqual(response.status_code, 200)
