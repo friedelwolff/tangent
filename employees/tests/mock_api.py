@@ -2,7 +2,7 @@ import json
 
 from employees.api import WebClientError
 
-class WebAPIClient:
+class MockedWebAPIClient:
     def __init__(self, token):
         self.token = token
 
@@ -10,11 +10,11 @@ class WebAPIClient:
     def from_auth(cls, username, password):
         if username in {'x'}:
             raise WebClientError()
-        return WebAPIClient('abc')
+        return MockedWebAPIClient('abc')
 
     @classmethod
     def from_request(cls, request):
-        return WebAPIClient('abc')
+        return MockedWebAPIClient('abc')
 
     def get_user_me(self, request):
         return {
