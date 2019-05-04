@@ -14,7 +14,7 @@ class WebAPIClient:
 
     @classmethod
     def from_request(cls, request):
-        return cls(request.session['api_token'])
+        return WebAPIClient('abc')
 
     def get_user_me(self, request):
         return {
