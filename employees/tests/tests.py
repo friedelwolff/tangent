@@ -8,6 +8,9 @@ class TestURLS(TestCase):
     def setUp(self):
         self.client = Client()
 
+    def login(self):
+        self.client.login(username="pravin.gordhan", password="pravin.gordhan")
+
     def test_index(self):
         response = self.client.get('/')
         self.assertEqual(response.status_code, 200)
@@ -33,3 +36,9 @@ class TestURLS(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Log in")
         self.assertContains(response, "Log out")
+
+    def test_employee_list(self):
+        self.login()
+        response = self.client.get('/list/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Github")
