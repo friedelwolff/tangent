@@ -19,6 +19,7 @@ class WebServiceAuthentication:
         # Create an internal user for each remote user. This way we can easily
         # use the session, etc.
         user, created = User.objects.get_or_create(username=username)
+        request.session['api_token'] = client.token
         return user
 
     def get_user(self, user_id):

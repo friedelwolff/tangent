@@ -20,6 +20,10 @@ class WebAPIClient:
         except (requests.exceptions.RequestException, ValueError, KeyError) as e:
             raise WebClientError() from e
 
+    @classmethod
+    def from_request(cls, request):
+        return cls(request.session['api_token'])
+
 
 if settings.MOCK_API:
     from employees.tests.mock_api import WebAPIClient
