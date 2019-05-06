@@ -3,6 +3,8 @@
 
 {% if user.is_authenticated %}
   <ul>
+    {% url 'stats' as url %}
+    <li><a href="{{ url }}">Overview</a>
     {% url 'list' as url %}
     <li><a href="{{ url }}">List of employees</a>
     {% url 'logout' as url %}

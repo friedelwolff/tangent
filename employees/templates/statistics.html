@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>Statistics</h1>
+
+<h2>Number of employees</h2>
+<p>There are <b>{{ n_employees }}</b> appointed in {{ employees_by_position|length }} different positions.</p>
+
+<h2>Employees by position</h2>
+    <ul>
+    {% for position, pos_employees in employees_by_position.items %}
+      <li>{{ position }}: {{ pos_employees|length }}</li>
+    {% endfor %}
+    </ul>
+
+<h2>Employees by level</h2>
+    <ul>
+    {% for level, level_employees in employees_by_level.items %}
+      <li>{{ level }}: {{ level_employees|length }}</li>
+    {% endfor %}
+    </ul>
+
+<h2>Upcoming birthdays</h2>
+{% if next_birthdays %}
+  <p>The following birthdays lie ahead:</p>
+    <ul>
+    {% for employee in next_birthdays %}
+      <li>
+        {{ employee.user.first_name }} {{ employee.user.last_name }}:
+        {{ employee.birth_date }}
+      </li>
+    {% endfor %}
+    </ul>
+{% else %}
+  <p>No birthdays for a while...</p>
+{% endif %}
+
+{% endblock %}
