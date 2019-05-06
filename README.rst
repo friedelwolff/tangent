@@ -40,3 +40,4 @@ Initialise the database:
 .. code:: bash
 
   ./manage.py migrate
+  ./manage.py createcachetable

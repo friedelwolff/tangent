@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.cache import cache
 import requests
 
 
@@ -26,11 +27,18 @@ class WebAPIClient:
 
     def _api_helper(self, endpoint):
         #TODO: cache based on token and endpoint
+        cache_key = "{}:{}".format(self.token, endpoint)
+        json = cache.get(cache_key)
+        if json:
+            return json
+
         headers = {"Authorization": "Token %s" % self.token}
         try:
             r = requests.get(settings.API_URL + endpoint, headers=headers)
             r.raise_for_status()
-            return r.json()
+            json = r.json()
+            cache.set(cache_key, json)
+            return json
         except (requests.exceptions.RequestException, ValueError) as e:
             raise WebClientError() from e
 

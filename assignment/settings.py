@@ -83,6 +83,17 @@ DATABASES = {
 }
 
 
+# Caching
+# https://docs.djangoproject.com/en/2.2/topics/cache/
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.db.DatabaseCache',
+        'LOCATION': 'my_cache_table',
+        'TIMEOUT': 30*60, # half an hour
+    }
+}
+
+
 AUTHENTICATION_BACKENDS = [
         'employees.authentication.WebServiceAuthentication',
 ]
