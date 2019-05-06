@@ -42,3 +42,11 @@
 {% endif %}
 
 {% endblock %}
+
+
+{% block extra_js_footer %}
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+  $('[title]').tooltip();
+})
+{% endblock %}
