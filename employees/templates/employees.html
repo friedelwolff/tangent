@@ -10,6 +10,7 @@
     <th scope="col">Name</th>
     <th scope="col">Position</th>
     <th scope="col">Github</th>
+    <th scope="col">Contact</th>
     </tr>
   </thead>
   <tbody>
@@ -24,6 +25,17 @@
             <a href="https://github.com/{{ employee.github_user}}" target="_blank">{{ employee.github_user }}</a>
           {% endif %}
       </td>
+      <td>{% if employee.phone_number %}
+            <button type="button" class="btn-lg btn-outline-dark" title="{{ employee.phone_number }}">
+              <a href="tel:{{employee.phone_number }}">☎</a>
+            </button>
+          {% endif %}
+          {% if employee.email %}
+            <button type="button" class="btn-lg btn-outline-dark" title="{{ employee.email }}">
+              <a href="mailto:{{ employee.email }}">@</a>
+            </button>
+          {% endif %}
+        </td>
     </tr>
   {% endfor %}
 </table>
