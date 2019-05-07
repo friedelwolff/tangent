@@ -18,7 +18,7 @@ class EmployeesListView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         client = get_client_class().from_request(self.request)
-        employees = client.get_employees(self.request)
+        employees = client.get_employees()
         context['employees'] = employees
         #TODO: pagination
         return context
@@ -45,7 +45,7 @@ class EmployeeStatsView(LoginRequiredMixin, TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         client = get_client_class().from_request(self.request)
-        employees = client.get_employees(self.request)
+        employees = client.get_employees()
 
         context['n_employees'] = len(employees)
 

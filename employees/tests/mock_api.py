@@ -16,7 +16,7 @@ class MockedWebAPIClient:
     def from_request(cls, request):
         return MockedWebAPIClient('abc')
 
-    def get_user_me(self, request):
+    def get_user_me(self):
         return {
                "id": 12,
                "username": "pravin.gordhan",
@@ -28,7 +28,7 @@ class MockedWebAPIClient:
                "is_superuser": False,
         }
 
-    def get_employees(self, request):
+    def get_employees(self):
         return json.loads('''
 [
         {

@@ -41,7 +41,7 @@ class WebAPIClient:
         except (requests.exceptions.RequestException, ValueError) as e:
             raise WebClientError() from e
 
-    def get_employees(self, request):
+    def get_employees(self):
         return self._api_helper('employee/')
 
 
