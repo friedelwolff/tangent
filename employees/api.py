@@ -26,7 +26,6 @@ class WebAPIClient:
         return cls(request.session['api_token'])
 
     def _api_helper(self, endpoint):
-        #TODO: cache based on token and endpoint
         cache_key = "{}:{}".format(self.token, endpoint)
         json = cache.get(cache_key)
         if json:
