@@ -85,7 +85,7 @@ class SearchView(LoginRequiredMixin, TemplateView):
         context = self.get_context_data()
         form = forms.SearchForm(request.GET)
         context["form"] = form
-        if form.is_valid() and 'gender' in request.GET:
+        if form.is_valid() and 'position' in request.GET:
             # the parameters were passed, so we need to search:
             data = form.cleaned_data
             client = get_client_class().from_request(self.request)

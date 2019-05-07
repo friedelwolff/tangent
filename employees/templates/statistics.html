@@ -9,7 +9,15 @@
 <h2>Employees by position</h2>
     <ul>
     {% for position, pos_employees in employees_by_position.items %}
-      <li>{{ position }}: {{ pos_employees|length }}</li>
+      {% with pos_employees.0.position as pos_data%}
+      <li>
+        {% if pos_data %}
+          <a href="../search/?position={{ pos_data.id}}">{{ position }}</a>:
+        {% else %}
+          {{ position }}:
+        {% endif %}
+          {{ pos_employees|length }}</li>
+      {% endwith %}
     {% endfor %}
     </ul>
 
