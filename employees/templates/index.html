@@ -7,6 +7,10 @@
     <li><a href="{{ url }}">Overview</a>
     {% url 'list' as url %}
     <li><a href="{{ url }}">List of employees</a>
+    {% url 'search' as url %}
+    <li><a href="{{ url }}">Search for employees</a>
+    {% url 'myprofile' as url %}
+    <li><a href="{{ url }}">My profile</a>
     {% url 'logout' as url %}
     <li><a href="{{ url }}">Log out</a>
   </ul>
