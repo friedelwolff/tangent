@@ -13,13 +13,6 @@
     {% endfor %}
     </ul>
 
-<h2>Employees by level</h2>
-    <ul>
-    {% for level, level_employees in employees_by_level.items %}
-      <li>{{ level }}: {{ level_employees|length }}</li>
-    {% endfor %}
-    </ul>
-
 <h2>Upcoming birthdays</h2>
 {% if next_birthdays %}
   <p>The following birthdays lie ahead:</p>

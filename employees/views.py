@@ -53,8 +53,6 @@ class EmployeeStatsView(LoginRequiredMixin, TemplateView):
         next_birthdays = []
         employees_by_position = defaultdict(list)
         no_position =  []
-        employees_by_level = defaultdict(list)
-        no_level =  []
         for e in employees:
             birth_date = e['birth_date']
             if birth_date and self._date_soon(birth_date):
@@ -62,20 +60,19 @@ class EmployeeStatsView(LoginRequiredMixin, TemplateView):
 
             position = e['position']
             if position:
-                employees_by_position[position['name']].append(e)
-                employees_by_level[position['level']].append(e)
+                name = position['name']
+                if position['level']:
+                    name = "{name} ({level})".format(**position)
+                employees_by_position[name].append(e)
             else:
                 no_position.append(e)
-                no_level.append(e)
 
         # We add this afterwards so that it appears last:
         if employees_by_position:
             employees_by_position["(no position)"] = no_position
-            employees_by_level["(no level)"] = no_level
 
         context['next_birthdays'] = next_birthdays
         context['employees_by_position'] = dict(employees_by_position)
-        context['employees_by_level'] = dict(employees_by_level)
 
         return context
 
