@@ -25,18 +25,21 @@ class WebAPIClient:
     def from_request(cls, request):
         return cls(request.session['api_token'])
 
-    def _api_helper(self, endpoint):
-        cache_key = "{}:{}".format(self.token, endpoint)
-        json = cache.get(cache_key)
-        if json:
-            return json
+    def _api_helper(self, endpoint, params=None):
+        if not params:
+            # don't cache requests with parameters for now
+            cache_key = "{}:{}".format(self.token, endpoint)
+            json = cache.get(cache_key)
+            if json:
+                return json
 
         headers = {"Authorization": "Token %s" % self.token}
         try:
-            r = requests.get(settings.API_URL + endpoint, headers=headers)
+            r = requests.get(settings.API_URL + endpoint, headers=headers, params=params)
             r.raise_for_status()
             json = r.json()
-            cache.set(cache_key, json)
+            if not params:
+                cache.set(cache_key, json)
             return json
         except (requests.exceptions.RequestException, ValueError) as e:
             raise WebClientError() from e
