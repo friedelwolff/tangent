@@ -52,6 +52,7 @@
 <h2>Employment</h2>
 <p><b>Start of employment:</b> {{ profile.start_date}}<br>
    <b>Current position:</b> {{ profile.position.name }} ({{ profile.position.level }})<br>
+   <b>Leave days remaining:</b> {{ profile.leave_remaining }}<br>
    <b>End of employment:</b> {{ profile.end_date|default_if_none:"" }}</p>
 
 {% if profile.employee_review %}

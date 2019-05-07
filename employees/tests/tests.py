@@ -91,6 +91,7 @@ class TestURLS(TestCase):
         self.login()
         response = self.client.get('/myprofile/')
         self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Leave days remaining")
         # race should be represented with human readable version, not e.g. 'B'
         self.assertContains(response, "Black")
         self.assertContains(response, "Male")
