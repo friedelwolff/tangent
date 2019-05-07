@@ -105,3 +105,69 @@ class MockedWebAPIClient:
             "days_to_birthday": 309
         }
 ]''')
+
+    def get_my_profile(self):
+        return json.loads(r'''{
+  "id": 12,
+  "user": {
+    "id": 12,
+    "username": "pravin.gordhan",
+    "email": "pravin@axedmps.com",
+    "first_name": "Pravin",
+    "last_name": "Gordhan",
+    "is_active": true,
+    "is_staff": true
+  },
+  "position": {
+    "id": 3,
+    "name": "Project Manager",
+    "level": "Senior",
+    "sort": 0
+  },
+  "employee_next_of_kin": [
+    {
+      "id": 4,
+      "name": "Mini Ghordan",
+      "relationship": "Wife",
+      "phone_number": "0827788877",
+      "email": "mini@axedmps.com",
+      "physical_address": "12 Church Street,\r\nBluekraans,\r\nMidrand,\r\nJohannesburg",
+      "employee": 12
+    }
+  ],
+  "employee_review": [
+    {
+      "id": 9,
+      "date": "2016-06-01",
+      "salary": "100000.00",
+      "type": "S"
+    },
+    {
+      "id": 13,
+      "date": "2017-08-30",
+      "salary": "120000.00",
+      "type": "P"
+    }
+  ],
+  "id_number": "5112125239088",
+  "phone_number": "0828899987",
+  "physical_address": "12 Church Street,\r\nBluekraans,\r\nMidrand,\r\nJohannesburg",
+  "tax_number": "102998766",
+  "email": "pravin@axedmps.com",
+  "personal_email": "pravin@axedmps.com",
+  "github_user": "PravG",
+  "birth_date": "1951-12-12",
+  "start_date": "2016-06-01",
+  "end_date": null,
+  "id_document": null,
+  "visa_document": null,
+  "is_employed": true,
+  "is_foreigner": false,
+  "gender": "M",
+  "race": "B",
+  "years_worked": 2,
+  "age": 66,
+  "next_review": "2018-02-28",
+  "days_to_birthday": 69,
+  "leave_remaining": "16.50"
+}''')

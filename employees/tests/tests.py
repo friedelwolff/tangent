@@ -80,6 +80,22 @@ class TestURLS(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Gender:")
 
+    def test_my_profile(self):
+        #Test unauthenticated:
+        response = self.client.get('/myprofile/')
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get('/myprofile/', follow=True)
+        self.assertContains(response, "Password")
+
+        #Test authenticated:
+        self.login()
+        response = self.client.get('/myprofile/')
+        self.assertEqual(response.status_code, 200)
+        # race should be represented with human readable version, not e.g. 'B'
+        self.assertContains(response, "Black")
+        self.assertContains(response, "Male")
+        self.assertContains(response, "Performance increase")
+
 
 def TestHelpers(TestCase):
 

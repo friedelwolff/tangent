@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1>{{ profile.user.first_name }} {{ profile.user.last_name }}</h1>
+
+<h2>Personal</h2>
+<div class="row">
+  <div class="col-lg">
+    <p><b>E-mail:</b> {{ profile.email }}<br>
+       <b>Personal e-mail:</b> {{ profile.personal_email }}<br>
+       <b>Phone:</b> {{ profile.phone_number}}</br>
+       <b>Github user:</b> {{ profile.github_user }}</br>
+       <b>Address:</b> <address>{{ profile.physical_address|linebreaksbr }}</address></p>
+  </div>
+
+  <div class="col-sm">
+    <p><b>Tax number:</b> {{ profile.tax_number }}<br>
+       <b>ID number:</b> {{ profile.id_number }}<br>
+       <b>Birthday:</b> {{ profile.birth_date }}</p>
+  </div>
+
+  <div class="col-sm">
+    <p><b>Foreigner status:</b> {{ profile.is_foreigner|yesno }}<br>
+       <b>Gender:</b> {{ profile.gender}}<br>
+       <b>Race:</b> {{ profile.race }}</p>
+  </div>
+</div>
+
+<h2>Next of kin</h2>
+{% if profile.employee_next_of_kin %}
+<table class="table">
+  <thead>
+    <tr>
+    <th scope="col">Name</th>
+    <th scope="col">Contact details</th>
+    <th scope="col">Address</th>
+  </thead>
+  <tbody>
+  {% for relation in profile.employee_next_of_kin %}
+    <tr>
+      <td>{{ relation.name }} ({{ relation.relationship}})</td>
+      <td>{{ relation.email}} {{ relation.phone_number }}</td>
+      <td><address>{{ relation.physical_address|linebreaksbr }}</addres></td>
+    </tr>
+  {% endfor %}
+</table>
+{% else %}
+  (No next of kin on file.)
+{% endif %}
+
+
+<h2>Employment</h2>
+<p><b>Start of employment:</b> {{ profile.start_date}}<br>
+   <b>Current position:</b> {{ profile.position.name }} ({{ profile.position.level }})<br>
+   <b>End of employment:</b> {{ profile.end_date|default_if_none:"" }}</p>
+
+{% if profile.employee_review %}
+  <p>
+  {% for review in profile.employee_review %}
+    <b>Review on {{ review.date }}:</b> R{{ review.salary }} ({{ review.type }})<br>
+  {% endfor %}
+{% endif %}
+  <b>Next review:</b> {{ profile.next_review }}</p>
+
+{% endblock %}

@@ -54,6 +54,9 @@ class WebAPIClient:
 
         return self._api_helper('employee/', params=params)
 
+    def get_my_profile(self):
+        return self._api_helper('employee/me/')
+
 
 def get_client_class():
     # simple factory method to ease testing with the mocked client
