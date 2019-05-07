@@ -3,6 +3,15 @@
 
 <h1>Employees</h1>
 
+{% if form %}
+<form>
+    <table>
+    {{ form }}
+    </table>
+    <input type="submit" value="Search">
+</form>
+{% endif %}
+
 {% if employees %}
 <table class="table">
   <thead>

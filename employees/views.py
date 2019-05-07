@@ -5,6 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.base import TemplateView
 
 from employees.api import get_client_class
+from employees.forms import SearchForm
 
 
 class IndexView(TemplateView):
@@ -77,4 +78,21 @@ class EmployeeStatsView(LoginRequiredMixin, TemplateView):
         context['employees_by_level'] = dict(employees_by_level)
 
         return context
+
+class SearchView(LoginRequiredMixin, TemplateView):
+    login_url = '/auth/login/'
+    template_name = 'employees.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data()
+        form = SearchForm(request.GET)
+        context["form"] = form
+        if form.is_valid() and 'gender' in request.GET:
+            # the parameters were passed, so we need to search:
+            data = form.cleaned_data
+            client = get_client_class().from_request(self.request)
+            employees = client.employees_search(params=data)
+            context["employees"] = employees
+
+        return self.render_to_response(context)
 

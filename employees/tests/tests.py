@@ -67,6 +67,19 @@ class TestURLS(TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Upcoming birthdays")
 
+    def test_search(self):
+        #Test unauthenticated:
+        response = self.client.get('/search/')
+        self.assertEqual(response.status_code, 302)
+        response = self.client.get('/search/', follow=True)
+        self.assertContains(response, "Password")
+
+        #Test authenticated:
+        self.login()
+        response = self.client.get('/search/')
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Gender:")
+
 
 def TestHelpers(TestCase):
 
