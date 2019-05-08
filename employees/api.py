@@ -62,6 +62,30 @@ class WebAPIClient:
     def get_my_profile(self):
         return self._api_helper('employee/me/')
 
+    def github_avatar_url(self, username):
+        """Use the github API to get the the avatar URL."""
+        if not username:
+            return None
+        cache_key = 'gh_avatar:{}'.format(username)
+        url = cache.get(cache_key)
+        if url is not None:
+            # We might have cached the empty string, so we need to test for
+            # None specifically.
+            return url
+
+        try:
+            headers = {'Accept', 'application/vnd.github.v3+json'}
+            r = requests.get('https://api.github.com/users/{}'.format(username))
+            r.raise_for_status()
+            url = r.json()["avatar_url"]
+            cache.set(cache_key, url)
+            return url
+        except (requests.exceptions.RequestException, ValueError, KeyError) as e:
+            # this is just not that important, so let's cache failure to avoid
+            # exceeding the rate limit
+            cache.set(cache_key, '')
+            return None
+
 
 def get_client_class():
     # simple factory method to ease testing with the mocked client

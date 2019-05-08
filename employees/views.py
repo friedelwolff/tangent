@@ -109,5 +109,6 @@ class MyProfileView(LoginRequiredMixin, TemplateView):
         for review in profile['employee_review']:
             review['type'] = forms.REVIEW_TYPES.get(review.pop('type'), None)
         context['profile'] = profile
+        context['github_avatar_url'] = client.github_avatar_url(profile['github_user'])
 
         return context

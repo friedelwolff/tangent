@@ -171,3 +171,6 @@ class MockedWebAPIClient:
   "days_to_birthday": 69,
   "leave_remaining": "16.50"
 }''')
+
+    def github_avatar_url(self, username):
+        return None
