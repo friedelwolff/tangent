@@ -1,3 +1,5 @@
+from urllib.parse import urlencode
+
 from django.conf import settings
 from django.core.cache import cache
 import requests
@@ -26,20 +28,18 @@ class WebAPIClient:
         return cls(request.session['api_token'])
 
     def _api_helper(self, endpoint, params=None):
-        if not params:
-            # don't cache requests with parameters for now
-            cache_key = "{}:{}".format(self.token, endpoint)
-            json = cache.get(cache_key)
-            if json:
-                return json
+        encoded_params = urlencode(params or {})
+        cache_key = "API:{}:{}?{}".format(self.token, endpoint, encoded_params)
+        json = cache.get(cache_key)
+        if json:
+            return json
 
         headers = {"Authorization": "Token %s" % self.token}
         try:
             r = requests.get(settings.API_URL + endpoint, headers=headers, params=params)
             r.raise_for_status()
             json = r.json()
-            if not params:
-                cache.set(cache_key, json)
+            cache.set(cache_key, json)
             return json
         except (requests.exceptions.RequestException, ValueError) as e:
             raise WebClientError() from e
@@ -47,8 +47,13 @@ class WebAPIClient:
     def get_employees(self):
         return self._api_helper('employee/')
 
-    def employees_search(self, params=None):
-        #TODO: pop parameters with empty values
+    def employees_search(self, params):
+        less_params = {}
+        for key, value in sorted(params.items()):
+            if value:
+                less_params[key] = value
+        params = less_params
+
         if not params:
             return self.get_employees()
 
