@@ -4,7 +4,22 @@
 <h1>Statistics</h1>
 
 <h2>Number of employees</h2>
-<p>There are <b>{{ n_employees }}</b> employees.</p>
+<p>There are <b>{{ n_employees }}</b> employees in total.</p>
+
+<h2>Employees by gender</h2>
+    <ul>
+      <li><a href="../search?gender=M">Males: {{ employees_by_gender.M|length }}</a>
+      <li><a href="../search?gender=F">Females: {{ employees_by_gender.F|length }}</a>
+    </ul>
+
+<h2>Employees by race</h2>
+    <ul>
+      <li><a href="../search?race=B">Black African: {{ employees_by_race.B|length }}</a>
+      <li><a href="../search?race=C">Coloured: {{ employees_by_race.C|length }}</a>
+      <li><a href="../search?race=I">Indian or Asian: {{ employees_by_race.I|length }}</a>
+      <li><a href="../search?race=W">White: {{ employees_by_race.W|length }}</a>
+      <li><a href="../search?race=N">None Dominant: {{ employees_by_race.N|length }}</a>
+    </ul>
 
 <h2>Employees by position</h2>
     <ul>

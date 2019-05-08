@@ -49,11 +49,16 @@ class EmployeeStatsView(LoginRequiredMixin, TemplateView):
         employees = client.get_employees()
 
         context['n_employees'] = len(employees)
+        employees_by_gender = defaultdict(list)
+        employees_by_race = defaultdict(list)
 
         next_birthdays = []
         employees_by_position = defaultdict(list)
         no_position =  []
         for e in employees:
+            employees_by_gender[e['gender']].append(e)
+            employees_by_race[e['race']].append(e)
+
             birth_date = e['birth_date']
             if birth_date and self._date_soon(birth_date):
                 next_birthdays.append(e)
@@ -72,6 +77,8 @@ class EmployeeStatsView(LoginRequiredMixin, TemplateView):
             employees_by_position["(no position)"] = no_position
 
         context['next_birthdays'] = next_birthdays
+        context['employees_by_gender'] = dict(employees_by_gender)
+        context['employees_by_race'] = dict(employees_by_race)
         context['employees_by_position'] = dict(employees_by_position)
 
         return context
@@ -85,7 +92,7 @@ class SearchView(LoginRequiredMixin, TemplateView):
         context = self.get_context_data()
         form = forms.SearchForm(request.GET)
         context["form"] = form
-        if form.is_valid() and 'position' in request.GET:
+        if form.is_valid() and request.GET:
             # the parameters were passed, so we need to search:
             data = form.cleaned_data
             client = get_client_class().from_request(self.request)
