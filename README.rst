@@ -28,10 +28,12 @@ Configure settings in the file `.env`, with at least these fields:
 
 .. code::
 
+  DEBUG=True
   SECRET_KEY = ARANDOMSECRETKEY
   API_AUTH_URL = http://...../api-token-auth/
   API_URL = http://...../api/
 
+Obviously DEBUG=True is never appropriate for a production envivronment.
 Alternative methods for configuring (such as environment variables) are
 possible. Consult the documentation for `python-decouple`.
 
@@ -47,3 +49,9 @@ To run the tests:
 .. code:: bash
 
   ./manage.py test
+
+To run the basic Django server:
+
+.. code:: bash
+
+  ./manage.py runserver
