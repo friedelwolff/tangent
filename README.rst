@@ -41,3 +41,9 @@ Initialise the database:
 
   ./manage.py migrate
   ./manage.py createcachetable
+
+To run the tests:
+
+.. code:: bash
+
+  ./manage.py test
